@@ -1,3 +1,24 @@
-<sebm-google-map [latitude]="lat" [longitude]="lng">
-  <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>
-</sebm-google-map>
+<div class="panel panel-danger">
+  <div class="panel-heading">Vendedores a Mostrar</div>
+  <div class="panel-body">
+    <app-filtros-vendedores></app-filtros-vendedores>
+  </div>
+</div>
+<div class="panel panel-danger">
+  <div class="panel-heading">Mapa</div>
+  <div class="panel-body">
+    <sebm-google-map [latitude]="lat" [longitude]="lng">
+      <sebm-google-map-marker *ngFor="let location of locations" [latitude]="location.lat" [longitude]="location.lng">
+        <sebm-google-map-info-window>
+          lat: {{ location.lat }}
+          lng: {{ location.lng }}
+          fecha: {{ location.fecha }}
+        </sebm-google-map-info-window>
+      </sebm-google-map-marker>
+    </sebm-google-map>
+  </div>
+</div>
+
+
+
+

@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
-import * as firebase from 'firebase';
 import { User } from 'firebase/app';
 import { Router } from '@angular/router';
 
+import * as firebase from 'firebase';
+
 @Injectable()
 export class AuthService {
-  constructor(private router: Router) { }
+  users = [];
+
+  constructor(private router: Router) {
+
+  }
 
   signIn(email: string, password: string) {
     firebase.auth().signInWithEmailAndPassword(email, password)
@@ -23,17 +28,5 @@ export class AuthService {
 
   getUser(): User {
     return firebase.auth().currentUser;
-  }
-
-  getOnAuthStateChanged(): boolean {
-    let logged = false;
-
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        logged = true;
-      }
-    });
-
-    return logged;
   }
 }
