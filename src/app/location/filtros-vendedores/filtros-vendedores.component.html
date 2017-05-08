@@ -1,0 +1,44 @@
+<!--<form>-->
+  <!--<div style="margin-bottom: 10px">-->
+    <!--<div class="form-group">-->
+      <!--<label for="all" class="radio-inline">-->
+        <!--<input type="radio" name="options" id="all" value="all" (click)="onClick($event)"> Todos-->
+      <!--</label>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<label class="radio-inline">-->
+        <!--<input type="radio" name="options" value="select" (click)="onClick($event)"> Seleccionar-->
+      <!--</label>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div>-->
+    <!--<div *ngIf="selection" class="form-group">-->
+      <!--<label for="vendedor">Vendedor</label>-->
+      <!--<select *ngFor="let user of vendedores" name="vendedor" id="vendedor" style="margin-right: 5px">-->
+        <!--<option *ngFor="let user of vendedores" value="user">{{ user.apellido + ', ' + user.nombre }}</option>-->
+      <!--</select>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</form>-->
+
+<div class="col-md-12">
+  <form [formGroup]="form" (submit)="onSubmit()">
+    <div class="form-group">
+      <div class="radio" *ngFor="let filtro of filtros">
+        <label>
+          <input type="radio" [value]="filtro" formControlName="filtros"> {{ filtro }}
+        </label>
+      </div>
+    </div>
+    <div *ngIf="selectedFiltro()" class="form-group" formArrayName="vendedores">
+      <label for="vendedores">Vendedores</label>  <a style="cursor: pointer" (click)="onAddFiltro()">agregar</a>
+      <div class="row" style="margin-bottom: 2px" *ngFor="let vendedor of form.get('vendedores').controls; let i = index" [formGroupName]="i">
+        <div class="col-md-2">
+          <select id="vendedores"><option *ngFor="let user of usuarios" value="user">{{ user.apellido + ', ' + user.nombre }}</option> </select> <a style="cursor: pointer" (click)="onRemoveFiltro(i)">quitar</a>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!disabledBtn()">Filtrar</button>
+  </form>
+</div>
+
